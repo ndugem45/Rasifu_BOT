@@ -1,0 +1,366 @@
+from keep_alive import keep_alive
+import discord
+# from discord.ext.tasks import loop
+import os
+import random
+import time
+from datetime import date
+
+intents = discord.Intents.default()
+intents.members = True
+intents.presences = True
+client = discord.Client(intents=intents)
+
+# =================================================================================
+
+def waktu():
+  print('fungsi command waktu')
+  today = date.today()
+  return "Waktu sekarang sih.. \n [ {} ]".format(today.strftime("%B %d, %Y"))
+
+# ====================================================================
+
+act = [
+  'Bikin mie ...',
+  'Main Genshin ...',
+  'Bersih" Guild Hall ...',
+  'Bikin dekorasi ...',
+  'Bayar listrik Guild ...',
+  'Isi tandon air ...',
+  'Kasih makan kucing ...',
+  'Pergi kencan ...'
+]
+greeting = [
+  'Yupp :3', 
+  'yooo -_-', 
+  'Yosh :D', 
+  'Hmmmmmm',
+  'Gmn gmn ?',
+  'Yes, can i help u ? :)',
+  'uhhh aku cape, ada apa ?',
+  'Rasifu disini :)'
+]
+ask = [
+  'siapa'
+]
+whitelist_member = [
+  'EagleOne#0797',
+  'ndugem45#1956'
+]
+gh = 715964928757858318
+bot_room = 801652022025519125
+bimbang = [
+  'Hah, beneran ?',
+  'Emmmm.. serius ?',
+  'Yakin ga ?',
+  'Eksekusi ?'
+]
+ask_for_wait = [
+  'Tunggu ya ...',
+  'Emm ....',
+  'Wait ...',
+  'Bentar.. bentar..'
+]
+switcher = {
+  'waktu': waktu,
+}
+cant_help = [
+  'Maaf gabisa bantu :(',
+  'Uhh maaf :(',
+  'Duh maaf ya Rasifu gabisa :D',
+  'Sepertinya aku gabisa :o',
+  'Emmmm... aku belum diajarin :D',
+  'Sorry, gatau mau jawab apa :D'
+]
+master_answ = [
+  "Yes, master :)",
+  "Im here master :D",
+  "Can i help u, master :)"
+]
+ask_attention = [
+  "Haloo haloo ...",
+  "Hai semua :D",
+  "Cek cek ... cek cek",
+  "Ehemm, perhatian ...",
+  "Tolong diperhatikan yak :)"
+]
+
+# =============================================================================
+
+
+def welcome_greeting(user):
+  print("fungsi welcome")
+  return "Welcome home {} :D".format(user)
+
+def leave_msg(nama):
+  print("fungsi welcome")
+  return "Yahh.. '{}' pergi meniggalkan kita :(".format(nama)
+
+async def kik_member(ctx):
+  print('fungsi kick')
+  if any(str(ctx.author) in s for s in whitelist_member):
+    comm = ctx.content.split('$kick ')
+    if len(comm) > 0:
+      print("id target ", ctx.mentions[0].id)
+      print("nama target ", ctx.mentions[0].name)
+      await ctx.channel.send(random.choice(bimbang))
+      time.sleep(2)
+      await ctx.channel.send(random.choice(ask_for_wait))
+      time.sleep(7)
+      await ctx.channel.send("Ga berani :o")
+    else:
+      time.sleep(0.5)
+      await ctx.channel.send("Jangan kasian :3")
+  else:
+    time.sleep(0.5)
+    await ctx.channel.send(":o")
+
+
+
+def notes():
+  print('note dari lok')
+  return """Oke buat yg baru join discord, Welcome to Calavera, guild yg santai tapi serius. Serius tapi santai.
+
+  Weekly kalian dijamin aman di sini karna member2 lama udh pada bisa GB semua. Guild war juga kita aktif, so pastiin kalian ikut ya buat nambah jam terbang. Berikut jadwal war, setiap hari:
+
+  Kamis, 21.00 WIB = War of emperium (WOE)
+  Minggu, 21.00 WIB = War of crystal (WOC)
+
+  Pastiin pas war kalian ada equip pvp ya (dmg to demi human). Jika berhalangan, mohon bantuannya untuk ijin di sini karena kita tidak memaksa kalian utk ikut war, tapi setidaknya hormati saudara kalian yang sudah effort jaga kastil.
+
+  Untuk discord, tersedia room utk klinik, event, weekly info silakan dieksplor sendiri.  Voice juga tersedia jika butuh. Jika butuh GB, silakan tag member di sini supaya bisa diingatkan.
+
+  Terima kasih sudah join. Play wise, banyak2in referensi youtube dan artikel, rajin2 baca."""
+
+def woe():
+  print('note for woe')
+  return """Selamat hari kamis member CALAVERA!!
+
+  Semoga hasil farming kalian hari ini luar biasa. Rasifu mau ingetin kalian nih, hari ini jadwal WOE lho. Yuk ikutan!
+
+  Mulainya pukul 21.00 WIB. Standby aja di guild hall dari pukul 20.30 WIB. Persiapkan equipment PVP kalian. Kalian bisa beli buff/potion di black cat cafe (posisi di guild hall dekat vending machine). Silakan bikin party dengan teman-temannya, bebas kok partynya.
+
+  Kalau ada yang belum tau apa itu WOE, Rasifu kasih video nih. Ditonton ya sampai habis:
+
+  https://www.youtube.com/watch?v=WrcTvyKHfd8&t=225s
+
+  Terus, kenapa kalian harus ikut WOE sih?
+
+  1. Kastil tuh rumah kalian lho, bukan hanya milik para lead. Masa kalian mau rumah kalian diserang sama tamu tak dikenal
+
+  2. Menang atau kalah, kuat atau lemah, mendominasi atau didominasi player lawan, yang penting dengan partisipasi kalian bisa dapat honor proof (penting utk perkembangan char kalian)
+
+  3. Bangun solidaritas dengan member lain. Berjuang bersama bikin kita tambah solid gaes
+
+  So, Rasifu percaya kalian yang hebat-hebat ini pasti bisa menjaga rumahnya dengan percaya diri. Selamat berjuang ya kawan-kawan CALAVERA!
+
+  Peace,
+
+  Rasifu :3"""
+
+def woc():
+  print('note for woc')
+  return """Perhatian kepada seluruh member CALAVERA!
+
+  Hari ini minggu, ada jadwal WOC (War Of Crystal) pukul 21.00 WIB. Bagi yang berada di luar area Indonesia Barat harap sesuaikan jam kalian.
+
+  Kumpul di guild hall pukul 20.30 WIB untuk briefing dan persiapan. Jika diperlukan, belanja buff & potion di black cat cafe yang ada di guild hall (posisi dekat vending machine), lalu siapkan juga equip PVP kalian (damage to demi human). Buff stone dari exchange disarankan beli wind dmg immunity, gunakan pet yang nambahin max HP atau penetration.
+
+  Bagi yang belum paham mekanisme WOC, bisa tonton video berikut sampai habis:
+
+  https://www.youtube.com/watch?v=C1sOqt-vTv0&t=352s
+
+  Kenapa kalian harus ikut WOC?
+
+  1. Sebagai kompensasi WOE pada hari kamis, jika kita mendapatkan kastil satu, diijinkan ikut WOC untuk tambahan honor proof dan praying card (sekali lagi, ini penting untuk perkembangan char kalian)
+
+  2. Sebagai bentuk solidaritas antar member guild untuk saling bahu membahu saat war, bisa mempererat pertemanan juga
+
+  3. Sebagai lahan latihan kalian juga PVP, terlepas dari menang atau kalah, didominasi atau mendominasi. Jam terbang menjadi salah satu parameter penting untuk char kalian
+
+  Silakan bersiap-siap, have fun, and always focus!
+
+  Ciao :3"""
+
+def monday():
+  print("monday reminder")
+  return """Hai member CALAVERA!
+
+  Selamat hari senin semuanya, waaw ga kerasa udah awal minggu aja. Gimana weekend kalian dan WOC kemarin?? seru ga?
+
+  Rasifu mau kasih tau buat para member nih, buat yang belum tau mekanisme weekly di ragnarok mobile, setiap hari senin tuh ada weekly reset lho!
+
+  Itu artinya kalian udah mulai bisa ambil lagi ET, VR, Purgatory, Ora, Thanatos, hadiahnya berjibun lho.
+
+  Buat kalian yang butuh bantuan/menawarkan bantuan bisa komen ya di room "tolongin saya" supaya chat di sini tidak ketutup. Tunggu apalagi, yuk weekly skrg, rasifu duduk ajasmile_cat 
+
+  Ciao,
+
+  Rasifu :3"""
+
+def wednesday():
+  print("reminder every wednesday")
+  return """Hai member CALAVERA!
+
+  Selamat hari rabu semuanya, semoga hasil farming kalian memuaskan yagrin .
+
+  Kalian tau ga setiap hari rabu tuh ada event lho.. Loh pada ga tau ya? sini Rasifu kasih tau hihi.
+
+  Jadi kalau kalian cek kalender asisten, nah ada tuh di situ penjelasan hari rabu sedang event apa (ada ufo west gate, kafra battle & poring battle). Setiap minggu event-nya ganti2, tapi selalu di hari rabu. Jadi jangan lupa untuk ikut event-nya gaes, seru lho rame + kalian bisa dapat hadiah flora star coin yang bisa ditukarkan dengan sejumlah hadiah menarik!
+
+  Event ini tidak butuh party kok, tapi kalau kalian mau bikin supaya makin solid, silakan bikin.
+
+  Tunggu apa lagi, yuk cek kalender kalian lalu standby sebelum jam 20.00 WIB karena eventnya hanya berlangsung 20.00-20.30 WIB saja.
+
+  Jangan sampai ketinggalan ya,
+
+  Rasifu :3"""
+
+async def asking(ctx):
+  print('fungsi bertanya')
+  msg = ctx.content.split('$ask ')
+  print(msg)
+  if len(msg) > 1:
+    time.sleep(0.5)
+    await ctx.channel.send(random.choice(ask_for_wait))
+    print(msg[1])
+    time.sleep(2)
+    func = switcher.get(msg[1].lower(), lambda: random.choice(cant_help))
+    print(func())
+    await ctx.channel.send(func())
+  else:
+    time.sleep(0.5)
+    await ctx.channel.send("Tanya apaan -_- ?")
+
+
+async def status_task():
+    while True:
+        game = discord.Game(random.choice(act))
+        await client.change_presence(status=discord.Status.idle, activity=game)
+        time.sleep(1800)
+
+
+
+# =================================================================================
+
+
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+    # client.loop.create_task(status_task())
+
+    # print('logged in as')
+    # print(client.user.name)
+    # print(client.user.id)
+    # print('-----')
+
+# @loop(seconds=5)
+# async def act_change():
+#     game = discord.Game(random.choice(act))
+#     await client.change_presence(status=discord.Status.idle, activity=game)
+#     print("Task done")
+
+#Public Welcome
+@client.event
+async def on_member_join(member):
+    print("Recognized that " + member.name + " joined")
+    await client.get_channel(gh).send(welcome_greeting(member.mention))
+    time.sleep(0.5)
+    await client.get_channel(gh).send("Aku ada info nih :3 \n ...")
+    time.sleep(1)
+    await client.get_channel(gh).send(notes())
+    time.sleep(0.7)
+    await client.get_channel(gh).send("Untuk info WOE silahkan ketik $woe yak :D")
+    # time.sleep(0.5)
+    # await client.get_channel(gh).send("Selamat ")
+
+#update listener
+@client.event
+async def on_member_update(before,after):
+    print("Recognized that " + before.name + " update")
+    # if str(after.status) == "offline":
+    # time.sleep(0.5)
+    # await client.get_channel(gh).send("{} update to {}".format(before.status, after.status))
+
+@client.event
+async def on_user_update(before,after):
+    print(before.name + " update")
+    # if str(after.status) == "offline":
+    # time.sleep(0.5)
+    # await client.get_channel(gh).send("{} update to {}".format(before.status, after.status))
+  
+
+#Mod Leave Announcement
+@client.event
+async def on_member_remove(member):
+    print("Recognized that " + member.name + " left")
+    time.sleep(0.5)
+    await client.get_channel(gh).send(leave_msg(member.name))
+
+#chat handler
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+      return
+
+    if message.content.startswith('$ras'):
+      print(message.author)
+      print(whitelist_member[1])
+      print()
+      if str(message.author) == whitelist_member[0]:
+        time.sleep(0.5)
+        await message.channel.send("Yes, My Lord :)")
+      elif str(message.author) == whitelist_member[1]:
+        time.sleep(0.5)
+        await message.channel.send(random.choice(master_answ))
+      else:
+        time.sleep(0.5)
+        await message.channel.send(random.choice(greeting))
+      
+
+    if message.content.startswith('$welcome'):
+      print('welcome notes')
+      time.sleep(0.5)
+      await message.channel.send(notes())
+    
+    if message.content.startswith('$woe'):
+      print('woe notes')
+      time.sleep(0.5)
+      await message.channel.send(random.choice(ask_attention))
+      time.sleep(0.8)
+      await message.channel.send(woe())
+
+    if message.content.startswith('$woc'):
+      print('woc notes')
+      time.sleep(0.5)
+      await message.channel.send(random.choice(ask_attention))
+      time.sleep(0.8)
+      await message.channel.send(woc())
+
+    if message.content.startswith('$kick'):
+      print("kick user command from {}".format(message.author))
+      time.sleep(0.5)
+      await kik_member(message)
+
+    if message.content.startswith('$ask'):
+      print('asking ...')
+      time.sleep(0.5)
+      await asking(message)
+      
+    if message.content.startswith('$monday'):
+      print('monday notes')
+      time.sleep(0.5)
+      await message.channel.send(monday())
+    
+    if message.content.startswith('$wednesday'):
+      print('wednesday notes')
+      time.sleep(0.5)
+      await message.channel.send(wednesday())
+    
+
+
+
+keep_alive()
+# act_change.start()
+client.run(os.getenv('TOKEN'))
