@@ -541,6 +541,6 @@ async def anger(ctx):
 
 
 
-
+# =========== main method =================================== 
 keep_alive()
 client.run(os.getenv('TOKEN'))
